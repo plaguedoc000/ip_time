@@ -6,7 +6,8 @@ import { fromLonLat } from "ol/proj";
 let coords;
 
 async function init() {
-    const res = await fetch("/api/get_coords");
+    const ip = await (await fetch("/api/get_client_ip")).json();
+    const res = await fetch(`/api/get_coords_by_ip?ip=${ip.ip}`);
     coords = await res.json();
     startApp();
 }
