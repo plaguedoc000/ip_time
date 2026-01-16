@@ -1,16 +1,9 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-import requests
+from routes import router
 
 app = FastAPI()
 
-@app.get("/api/get_coords")
-def get_coords():
-    url = "http://ip-api.com/json/"
-    responce = requests.get(url).json()
-    return {
-        "lat": responce["lat"], 
-        "lon": responce["lon"],
-    }
+app.include_router(router)
 
-app.mount("/", StaticFiles(directory="../frontend/dist", html=True))
+#app.mount("/", StaticFiles(directory="../frontend/dist", html=True))
